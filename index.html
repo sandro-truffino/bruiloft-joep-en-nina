@@ -24,6 +24,7 @@
             font-weight: 300;
             color: var(--text);
             background: var(--cream);
+
             line-height: 1.7;
             font-size: 16px;
         }
@@ -31,7 +32,7 @@
         /* Hero */
         .hero {
             text-align: center;
-            padding: 4rem 1.5rem 3rem;
+            padding: 2.5rem 1.5rem 2rem;
             background: linear-gradient(180deg, #F5EDE3 0%, var(--cream) 100%);
         }
 
@@ -73,7 +74,27 @@
             width: 60px;
             height: 1px;
             background: var(--warm-light);
-            margin: 2.5rem auto;
+            margin: 1.8rem auto;
+        }
+
+        .scroll-hint {
+            text-align: center;
+            padding: 1rem 0 0.5rem;
+            color: var(--warm-light);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            animation: softBounce 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint span {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 1rem;
+        }
+
+        @keyframes softBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
         }
 
         /* Programma */
@@ -227,8 +248,7 @@
 
 <div class="hero">
     <h1 class="hero-names">Joep <span class="hero-ampersand">&</span> Nina</h1>
-    <p class="hero-subtitle">gaan trouwen en vieren dat graag met jullie</p>
-    <p class="hero-date">Vrijdag 28 augustus — Nijmegen</p>
+    <p class="hero-subtitle">gaan trouwen en willen jullie er graag bij hebben om deze bijzondere dag met ons te vieren. Hieronder alvast alles wat handig is om te weten</p>
 </div>
 
 <div class="divider"></div>
@@ -353,12 +373,10 @@
     </p>
     <p>of bel/app Nina: <a href="tel:+31612345678">06 - 1234 5678</a></p>
 
-    <p style="margin-top: 1.8rem; font-weight: 500; color: var(--text); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em;">Ceremoniemeester</p>
-    <p style="margin-top: 0.3rem;"><strong>[Naam]</strong></p>
+    <p style="margin-top: 1.8rem; color: var(--text-light); font-size: 0.9rem;">Wil je een speech, bijdrage of verrassing regelen?<br>Neem contact op met onze ceremoniemeester <strong>[Naam]</strong></p>
     <p><a href="mailto:[email]">[email]</a> / <a href="tel:[telefoon]">[telefoon]</a></p>
-    <p style="font-size: 0.82rem; margin-top: 0.2rem;">Voor speeches, spelletjes of andere verrassingen</p>
 
-    <p class="footer-note">Wij — Joep, Nina, Isa & Lou — hebben er ontzettend veel zin in.<br>Jullie ook?</p>
+    <p class="footer-note" style="font-size: 1.2rem;">Wij hebben er ontzettend veel zin in, Joep, Nina, Isa & Lou<br>Jullie ook?</p>
 </div>
 
 <script>
