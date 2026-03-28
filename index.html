@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joep & Nina — 28 augustus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+        :root {
+            --warm: #8B6F4E;
+            --warm-light: #C4A882;
+            --cream: #FBF8F4;
+            --sage: #7A8B6F;
+            --text: #3D3428;
+            --text-light: #6B5D4F;
+            --border: #E8E0D4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            color: var(--text);
+            background: var(--cream);
+
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 2.5rem 1.5rem 2rem;
+            background: linear-gradient(180deg, #F5EDE3 0%, var(--cream) 100%);
+        }
+
+        .hero-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            font-weight: 400;
+            color: var(--warm);
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        .hero-ampersand {
+            font-style: italic;
+            font-size: 0.6em;
+            color: var(--warm-light);
+            margin: 0 0.15em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-light);
+            margin-top: 1.2rem;
+            letter-spacing: 0.04em;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-date {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--warm);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--warm-light);
+            margin: 1.8rem auto;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 1.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: var(--warm-light);
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            animation: softBounce 2s ease-in-out infinite;
+            transition: opacity 0.5s ease;
+            z-index: 10;
+        }
+
+        .scroll-hint.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-hint span {
+            display: block;
+            margin-top: 0.2rem;
+            font-size: 1.1rem;
+        }
+
+        @keyframes softBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* Programma */
+        .programma {
+            text-align: center;
+            padding: 0 1.5rem 2rem;
+        }
+
+        .programma h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--warm);
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .timeline-time {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--warm);
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .timeline-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* FAQ */
+        .faq {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 3rem;
+        }
+
+        .faq h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--warm);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 0;
+        }
+
+        .faq-item:first-of-type {
+            border-top: 1px solid var(--border);
+        }
+
+        .faq-question {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: var(--warm-light);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding-top: 0.8rem;
+        }
+
+        .faq-answer p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+            padding: 2rem 1.5rem 4rem;
+            background: linear-gradient(0deg, #F5EDE3 0%, var(--cream) 100%);
+        }
+
+        .contact h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--warm);
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .contact a {
+            color: var(--warm);
+            text-decoration: none;
+            border-bottom: 1px solid var(--warm-light);
+        }
+
+        .contact a:hover {
+            color: var(--sage);
+            border-color: var(--sage);
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--warm-light);
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1 class="hero-names">Joep <span class="hero-ampersand">&</span> Nina</h1>
+    <p class="hero-subtitle">gaan trouwen en we willen jullie er graag bij hebben om deze bijzondere dag met ons te vieren. Op deze pagina alvast wat <a href="#faq" style="color: var(--warm); text-decoration: none; border-bottom: 1px solid var(--warm-light);">informatie</a> en het programma</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="programma" id="programma">
+    <h2>Programma</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <span class="timeline-time">13:00</span>
+            <span class="timeline-label">Ontvangst daggasten</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">13:30</span>
+            <span class="timeline-label">Ceremonie</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">15:00</span>
+            <span class="timeline-label">Borrel & felicitaties</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">17:30</span>
+            <span class="timeline-label">Diner</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">20:00</span>
+            <span class="timeline-label">Ontvangst avondgasten</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">20:30</span>
+            <span class="timeline-label">Feest!</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">01:00</span>
+            <span class="timeline-label">Einde</span>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="faq" id="faq">
+    <h2>Veelgestelde vragen</h2>
+
+    <div class="faq-item">
+        <div class="faq-question">Waar vindt de bruiloft precies plaats?</div>
+        <div class="faq-answer">
+            <p>De ceremonie en het feest vinden plaats op dezelfde locatie: <strong>[Locatienaam]</strong>, Fresnelstraat 34, Nijmegen. Bekijk de locatie op <a href="https://maps.google.com/?q=Fresnelstraat+34+Nijmegen" target="_blank" rel="noopener">Google Maps</a>. Er is voldoende parkeergelegenheid op het terrein. De locatie is ook goed bereikbaar met het openbaar vervoer.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Wat is de dresscode?</div>
+        <div class="faq-answer">
+            <p>Feestelijk chic. Denk aan een pak of nette jurk, maar bovenal: draag iets waar je lekker in danst. We vieren het buiten en binnen, dus houd rekening met het weer en neem eventueel een extra laagje mee.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Kan ik mijn kinderen meenemen?</div>
+        <div class="faq-answer">
+            <p>We vinden het gezellig als jullie kinderen erbij zijn! Isa en Lou kijken ernaar uit om met ze te spelen. Laat ons wel even weten hoeveel kleine gasten we mogen verwachten, zodat we daar rekening mee kunnen houden.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Hoe zit het met dieetwensen of allergieën?</div>
+        <div class="faq-answer">
+            <p>We willen dat iedereen kan genieten van het diner. Heb je een allergie, dieetwens of eet je vegetarisch/veganistisch? Laat het ons uiterlijk [datum] weten via de contactgegevens onderaan deze pagina.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Moet ik mijn komst bevestigen?</div>
+        <div class="faq-answer">
+            <p>Ja, graag! We ontvangen je RSVP het liefst vóór <strong>[datum]</strong>. Je kunt reageren via de contactgegevens onderaan. Geef daarbij aan of je als dag- of avondgast komt en met hoeveel personen.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Zijn er overnachtingsmogelijkheden in de buurt?</div>
+        <div class="faq-answer">
+            <p>Nijmegen heeft genoeg leuke hotels en B&B's. Een paar tips: <strong>[Hotelnaam 1]</strong> (op loopafstand), <strong>[Hotelnaam 2]</strong> (budget-optie) en <strong>[Hotelnaam 3]</strong> (voor wie het groots wil aanpakken). Boek op tijd, want het is een populaire periode!</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Hebben jullie een cadeau-idee?</div>
+        <div class="faq-answer">
+            <p>Het allerbelangrijkste cadeau is dat jullie erbij zijn. Mochten jullie toch iets willen geven, dan dragen we graag bij aan [ons huwelijksreisfonds / een nieuwe [iets voor het huis]]. Meer info hierover volgt op de dag zelf.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Mag ik foto's en video's maken?</div>
+        <div class="faq-answer">
+            <p>Tijdens de ceremonie vragen we jullie om telefoons even weg te leggen, onze fotograaf vangt alle mooie momenten. Daarna: knip en film erop los! We maken na afloop een gedeeld album aan zodat iedereen foto's kan toevoegen.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Ik wil iets organiseren (speech, spel, optreden), bij wie meld ik dat?</div>
+        <div class="faq-answer">
+            <p>Wat leuk! Neem contact op met onze ceremoniemeester, je vindt de gegevens onderaan deze pagina. Hij/zij coördineert het programma en zorgt dat alles soepel verloopt.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Hoe kom ik er met het openbaar vervoer?</div>
+        <div class="faq-answer">
+            <p>De locatie is aan de Fresnelstraat 34 in Nijmegen. Vanaf station Nijmegen neem je bus [nummer] richting [richting], uitstappen bij halte [haltenaam]. De locatie is dan circa 5 minuten lopen. Plan je reis via <a href="https://9292.nl" target="_blank" rel="noopener">9292.nl</a>.</p>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="contact">
+    <h2>Contact</h2>
+    <p>Vragen, RSVP of gewoon zin om te kletsen?</p>
+    <p style="margin-top: 0.8rem;">
+        <a href="mailto:joep.en.nina@voorbeeld.nl">joep.en.nina@voorbeeld.nl</a>
+    </p>
+    <p>of bel/app Nina: <a href="tel:+31612345678">06 - 1234 5678</a></p>
+
+    <p style="margin-top: 1.8rem; color: var(--text-light); font-size: 0.9rem;">Wil je een speech, bijdrage of verrassing regelen?<br>Neem contact op met onze ceremoniemeester <strong>[Naam]</strong></p>
+    <p><a href="mailto:[email]">[email]</a> / <a href="tel:[telefoon]">[telefoon]</a></p>
+
+    <p class="footer-note" style="font-size: 1.2rem;">Wij hebben er ontzettend veel zin in, Joep, Nina, Isa & Lou<br>Jullie ook?</p>
+</div>
+
+<div class="scroll-hint" id="scrollHint">
+    scroll<span>&#8595;</span>
+</div>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            const item = q.parentElement;
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+
+    const hint = document.getElementById('scrollHint');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+            hint.classList.add('hidden');
+        } else {
+            hint.classList.remove('hidden');
+        }
+    });
+</script>
+
+</body>
+</html>
